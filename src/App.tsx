@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-
 import './App.css'
+import { TodoItem } from './components/TodoItem';
 
 interface TodoInterface {
   id: number;
@@ -11,7 +11,7 @@ interface TodoInterface {
 
 function App() {
 
-  const [todos, setTodos] = useState<TodoInterface | []>([]);
+  const [todos, setTodos] = useState<TodoInterface[] | []>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,15 +39,22 @@ function App() {
       setLoading(false);
     }
   }
-  
+
   return (
     <>
       <main>
-        <h1>Startsidan</h1>
+        <h1>Att göra lista:</h1>
 
         {loading && <p><strong>Laddar...</strong></p>}
-
         {error && <p><strong>Ett fel har uppstått: {error}</strong></p>}
+
+        <div className='todoItem'>
+          {
+            todos && todos.map((todo) => (
+              <TodoItem key={todo.id} todo={todo} onTodoUpdate={fetchData}/>
+            ))
+          }
+        </div>
       </main>
     </>
   )

@@ -1,0 +1,54 @@
+.form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2em;
+}
+label {
+    margin-bottom: 0.5em;
+    font-size: 1.2em;
+    font-weight: 500;
+
+}
+
+input {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    transition: border-color 0.25s;
+}
+
+.submitBtn {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    background-color: rgb(49, 46, 218);
+    transition: border-color 0.25s;
+}
+
+.submitBtn:hover {
+    border-color: #000000;
+}
+
+#status {
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 1em;
+    transition: border-color 0.25s;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+#status:hover {
+    border-color: #ffffff;
+}
+
+section {
+    margin-bottom: 2em;
+}

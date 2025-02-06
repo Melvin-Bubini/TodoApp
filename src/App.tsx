@@ -1,49 +1,25 @@
-import { useState, useEffect } from 'react'
 import './App.css'
 import { TodoItem } from './components/TodoItem';
+import useGet from './hooks/useGet';
+import { TodoForm } from './components/TodoForm';
 
-interface TodoInterface {
-  id: number;
-  title: string;
-  description: boolean;
-  status: string;
+export interface TodoInterface {
+  id?: number,
+  title: string,
+  description: string,
+  status: string
 }
 
 function App() {
 
-  const [todos, setTodos] = useState<TodoInterface[] | []>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-
-      const response = await fetch('http://localhost:5036/todoitems');
-
-      if (!response.ok) {
-        throw new Error(`Det blev ett fel: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setTodos(data);
-
-
-    } catch (error) {
-      setError(`Det blev ett fel vid inhämntning av todos: ${error}`);
-    } finally {
-      setLoading(false);
-    }
-  }
+  const {data : todos, error, loading, fetchData} = useGet<TodoInterface[]>("http://localhost:5036/todoitems");
 
   return (
     <>
       <main>
         <h1>Att göra lista:</h1>
+
+        <TodoForm onAddTodo={fetchData}/>
 
         {loading && <p><strong>Laddar...</strong></p>}
         {error && <p><strong>Ett fel har uppstått: {error}</strong></p>}

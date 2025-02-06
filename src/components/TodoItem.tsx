@@ -1,7 +1,7 @@
-import "./TodoItem.css";
+import styles from "./TodoItem.module.css";
 export const TodoItem = ({todo, onTodoUpdate} : {todo: any, onTodoUpdate: Function}) => {
 
-    const statusColor = todo.status === "Ej påbörjad" ? "red" : todo.status === "Pågående" ? "blue" : "green";
+    const statusColor = todo.status === "Ej påbörjad" ? "red" : todo.status === "Pågående" ? "yellow" : "green";
 
     const updateTodo = async (e : any) => {
         let newStatus = e.target.value;
@@ -35,7 +35,7 @@ export const TodoItem = ({todo, onTodoUpdate} : {todo: any, onTodoUpdate: Functi
 
         <form >
             <label htmlFor="status">Ändra status:</label> <br />
-            <select name="status" id="status" defaultValue={todo.status} onChange={updateTodo} >
+            <select name="status" id={styles.status} defaultValue={todo.status} onChange={updateTodo} >
                 <option >Ej påbörjad</option>
                 <option >Pågående</option>
                 <option >Avklarad</option>

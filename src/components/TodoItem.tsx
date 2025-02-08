@@ -23,7 +23,29 @@ export const TodoItem = ({todo, onTodoUpdate} : {todo: any, onTodoUpdate: Functi
 
            onTodoUpdate();
         } catch (error) {
-            
+            console.log("Fel vid updatering av todo:", error);
+        }
+    }
+
+    const deleteTodo = async (e : React.FormEvent) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch("http://localhost:5036/todoitems/" + todo.id, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(todo)
+            });
+
+            if(!response.ok) {
+                throw new Error ("Kunde inte ta bort todo");
+            }
+
+            onTodoUpdate();
+        } catch (error) {
+            console.error("Fel vid updatering av todo:", error)
         }
     }
 
@@ -39,7 +61,8 @@ export const TodoItem = ({todo, onTodoUpdate} : {todo: any, onTodoUpdate: Functi
                 <option >Ej påbörjad</option>
                 <option >Pågående</option>
                 <option >Avklarad</option>
-            </select>
+            </select><br />
+            <button onClick={deleteTodo} className={styles.deleteBtn} type="button">Radera</button>
         </form>
     </section>
   )

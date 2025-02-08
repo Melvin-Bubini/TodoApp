@@ -41,9 +41,9 @@ export const TodoForm = ({ onAddTodo }: TodoFormProps) => {
         <div className={styles.formContainer}>
             <form className={styles.form} onSubmit={handleSubmit}>
                 <label htmlFor="title">Titel:</label>
-                <input type="text" name="title" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                <input type="text" name="title" id="title" minLength={3} value={title} onChange={(e) => setTitle(e.target.value)} />
                 <label htmlFor="description">Beskrivning:</label>
-                <input name="description" id="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                <input name="description" id="description" maxLength={200} value={description} onChange={(e) => setDescription(e.target.value)} />
                 <label htmlFor="status">Status</label>
                 <select name="status" id={styles.status} value={status} onChange={(e) => setStatus(e.target.value)}>
                     <option >Ej påbörjad</option>

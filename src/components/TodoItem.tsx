@@ -46,7 +46,7 @@ export const TodoItem = ({ todo, onTodoUpdate }: { todo: any, onTodoUpdate: Func
 
             onTodoUpdate();
         } catch (error) {
-            console.error("Fel vid updatering av todo:", error)
+            console.error("Fel vid radering av todo:", error)
         }
     }
 

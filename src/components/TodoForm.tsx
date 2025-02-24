@@ -11,8 +11,35 @@ export const TodoForm = ({ onAddTodo }: TodoFormProps) => {
     const [description, setDescription] = useState("");
     const [status, setStatus] = useState("Ej påbörjad");
 
+    const [titleError, setTitleError] = useState("");
+    const [descriptionError, setDescriptionError] = useState("");
+
+    const validateForm = () => {
+        let isValid = true;
+
+        if (title.trim().length < 3) {
+            setTitleError("Titeln måste vara 3 tecken eller fler");
+            isValid = false;
+        } else {
+            setTitleError("");
+        }
+
+        if (description.length > 200) {
+            setDescriptionError("Beskrivning får max vara 200 tecken.");
+            isValid = false;
+        } else {
+            setDescriptionError("");
+        }
+
+        return isValid;
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
 
         const newTodo: TodoInterface = { title, description, status };
 
@@ -41,9 +68,11 @@ export const TodoForm = ({ onAddTodo }: TodoFormProps) => {
         <div className={styles.formContainer}>
             <form className={styles.form} onSubmit={handleSubmit}>
                 <label htmlFor="title">Titel:</label>
-                <input type="text" name="title" id="title" minLength={3} value={title} onChange={(e) => setTitle(e.target.value)} />
+                {titleError && <p className={styles.error}>{titleError}</p>}
+                <input type="text" name="title" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
                 <label htmlFor="description">Beskrivning:</label>
-                <input name="description" id="description" maxLength={200} value={description} onChange={(e) => setDescription(e.target.value)} />
+                {descriptionError && <p className={styles.error}>{descriptionError}</p>}
+                <input name="description" id="description" value={description} onChange={(e) => setDescription(e.target.value)} />
                 <label htmlFor="status">Status</label>
                 <select name="status" id={styles.status} value={status} onChange={(e) => setStatus(e.target.value)}>
                     <option >Ej påbörjad</option>
